@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tableau de bord officiel de gestion touristique - Ville de Ouidah">
+    <title>Tableau de Bord Officiel - OUIDAH CONNECT</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #212121;
+            min-height: 100vh;
+        }
+        
+        /* EN-TÊTE OFFICIEL */
+        .header-officiel {
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-officiel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FFB300 0%, #2E7D32 50%, #FFB300 100%);
+        }
+        
+        .header-officiel h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .header-officiel .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+        
+        .header-officiel .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        /* CONTENEUR PRINCIPAL */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* CARTE D'INTRODUCTION */
+        .intro-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #2E7D32;
+        }
+        
+        .intro-card h2 {
+            color: #A0522D;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .intro-card p {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .intro-card .highlight {
+            color: #2E7D32;
+            font-weight: 600;
+        }
+        
+        /* INDICATEURS CLÉS */
+        .indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .indicator-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border-top: 4px solid;
+        }
+        
+        .indicator-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .indicator-card.green { border-top-color: #2E7D32; }
+        .indicator-card.brown { border-top-color: #A0522D; }
+        .indicator-card.gold { border-top-color: #FFB300; }
+        
+        .indicator-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .indicator-card .label {
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .indicator-card .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #212121;
+        }
+        
+        /* CONTENEUR DU TABLEAU DE BORD */
+        .dashboard-wrapper {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            margin-bottom: 25px;
+        }
+        
+        .dashboard-header {
+            background: #f9f9f9;
+            padding: 20px 30px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .dashboard-header h3 {
+            color: #A0522D;
+            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #E8F5E9;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #2E7D32;
+            font-weight: 600;
+        }
+        
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #2E7D32;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        
+        .dashboard-iframe-container {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            min-height: 600px;
+        }
+        
+        .dashboard-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* PIED DE PAGE OFFICIEL */
+        .footer-officiel {
+            background: #212121;
+            color: #bbb;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .footer-officiel .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .footer-officiel p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+        
+        .footer-officiel .confidential {
+            display: inline-block;
+            background: rgba(255,179,0,0.2);
+            color: #FFB300;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 15px;
+            border: 1px solid #FFB300;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-officiel h1 { font-size: 1.8rem; }
+            .dashboard-iframe-container { height: 70vh; min-height: 500px; }
+            .dashboard-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- EN-TÊTE OFFICIEL -->
+    <header class="header-officiel">
+        <h1>📊 Tableau de Bord Officiel</h1>
+        <p class="subtitle">Gestion Touristique et Patrimoniale de la Ville de Ouidah</p>
+        <p class="subtitle">Projet Pilote en Partenariat Public-Privé (PPP)</p>
+        <span class="badge">🔒 Document à destination des autorités</span>
+    </header>
+    
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-container">
+        
+        <!-- CARTE D'INTRODUCTION -->
+        <div class="intro-card">
+            <h2>🏛️ Bienvenue sur l'outil de pilotage</h2>
+            <p>
+                Ce tableau de bord présente en <span class="highlight">temps réel</span> les indicateurs clés 
+                de la plateforme de billetterie électronique <strong>OUIDAH CONNECT</strong>, déployée dans le 
+                cadre de la modernisation de la gestion touristique de notre ville.
+            </p>
+            <p>
+                Il permet aux autorités de suivre la fréquentation des sites patrimoniaux 
+                (Temple des Pythons, Musée d'Histoire, Route des Esclaves, Forêt Sacrée de Kpasse), 
+                d'analyser les recettes générées, et de prendre des décisions éclairées pour le 
+                développement touristique de Ouidah.
+            </p>
+        </div>
+        
+        <!-- INDICATEURS CLÉS -->
+        <div class="indicators">
+            <div class="indicator-card green">
+                <div class="icon">📈</div>
+                <div class="label">Données</div>
+                <div class="value">Temps Réel</div>
+            </div>
+            <div class="indicator-card brown">
+                <div class="icon">🏛️</div>
+                <div class="label">Sites Couverts</div>
+                <div class="value">4 Sites Patrimoniaux</div>
+            </div>
+            <div class="indicator-card gold">
+                <div class="icon">🔒</div>
+                <div class="label">Sécurité</div>
+                <div class="value">Données Infalsifiables</div>
+            </div>
+        </div>
+        
+        <!-- TABLEAU DE BORD INTÉGRÉ -->
+        <div class="dashboard-wrapper">
+            <div class="dashboard-header">
+                <h3>📊 Rapport Interactif Complet</h3>
+                <div class="live-indicator">
+                    <span class="live-dot"></span>
+                    Données en direct
+                </div>
+            </div>
+            <div class="dashboard-iframe-container">
+                <!-- 
+                    ⚠️ IMPORTANT : 
+                    1. Ouvrez votre tableau de bord Looker Studio
+                    2. Cliquez sur "Fichier" → "Intégrer le rapport"
+                    3. Cochez "Activer l'intégration"
+                    4. Copiez l'URL de l'iframe et remplacez-la ci-dessous
+                -->
+                
+                <div class="dashboard-iframe-container">
+                <iframe 
+                    src="https://datastudio.google.com/embed/reporting/1d460784-4b8f-4c6a-a33f-8e5a14b3a44b/page/q8C4F" 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    style="border:0" 
+                    allowfullscreen 
+                    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+        
+        <!-- NOTE D'UTILISATION -->
+        <div class="intro-card" style="border-left-color: #FFB300;">
+            <h2>💡 Comment utiliser ce tableau de bord</h2>
+            <p>
+                <strong>📅 Filtres de période :</strong> Utilisez le sélecteur de dates en haut du rapport 
+                pour visualiser les données par jour, semaine, mois ou année.
+            </p>
+            <p>
+                <strong>📊 Navigation :</strong> Cliquez sur les différents onglets du rapport pour explorer 
+                les indicateurs par site, par type de billet, ou par période.
+            </p>
+            <p>
+                <strong>🔗 Accès direct :</strong> Vous pouvez également consulter le tableau de bord 
+                directement sur Looker Studio en 
+                <a href="https://datastudio.google.com/reporting/1d460784-4b8f-4c6a-a33f-8e5a14b3a44b" 
+                   target="_blank" style="color: #2E7D32; font-weight: 600;">cliquant ici</a>.
+            </p>
+        </div>
+        
+    </main>
+    
+    <!-- PIED DE PAGE OFFICIEL -->
+    <footer class="footer-officiel">
+        <div class="logo-text">OUIDAH CONNECT</div>
+        <p>Plateforme Officielle de Gestion Touristique de la Ville de Ouidah</p>
+        <p>République du Bénin - Projet Pilote PPP</p>
+        <p style="margin-top: 10px; font-size: 0.75rem;">© 2026 - Tous droits réservés</p>
+        <span class="confidential">🔒 DOCUMENT OFFICIEL - USAGE INTERNE</span>
+    </footer>
+    
+</body>
+</html>
